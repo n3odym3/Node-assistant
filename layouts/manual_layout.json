@@ -1,0 +1,23 @@
+{
+    "windows": [
+        {
+            "module": "serial.module_template",
+            "class_name": "Template_win",
+            "uuid": "122",
+            "pos": [
+                417,
+                103
+            ],
+            "size": [
+                300,
+                200
+            ],
+            "visible": true,
+            "params": {
+                "label": "Template",
+                "default_number": 15
+            }
+        }
+    ],
+    "connections": []
+}
