@@ -25,7 +25,7 @@ class Text_viewer_win(WindowBase):
 			uuid=uuid, outputs=outputs or [], visible=visible)
 
 		# Persist label and text content
-		self._persistent_fields = ["label","content"]
+		self._persistent_fields = ["label"]
 
 		# Define input and output types
 		self.accepted_input_types = [IOTypes.TEXT, IOTypes.CMD_DICT, IOTypes.TRIGGER]

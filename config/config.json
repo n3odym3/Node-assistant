@@ -1,7 +1,7 @@
 {
     "General": {
-        "app_name": "DPG_BUILDER",
-        "default_folder": "experiments",
+        "app_name": "Node assistant",
+        "default_folder": "NA",
         "fontsize": 20
     },
     "Debug": {

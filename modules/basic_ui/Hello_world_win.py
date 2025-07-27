@@ -29,8 +29,7 @@ class HelloWorld_win(WindowBase):
 		self.accepted_input_types = []
 
 		self.outputs = {
-			"out1" : IOTypes.TEXT,
-			"out2" : IOTypes.TEXT
+			"Out" : IOTypes.TEXT,
 		}
 
 		self.connections = {k: [] for k in self.outputs}

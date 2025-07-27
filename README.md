@@ -66,6 +66,99 @@ So if the module you need doesn't exist yet: **build it !** It’s easier than y
 - pandas
 - pillow
 
+## 🚀 How to use
+
+This section explains how to use the key tools available in Node Assistant.
+
+---
+
+### Node Editor
+
+Start by launching the program.  
+Then go to the top menu:  
+**Modules → Node editor**
+
+A new window will appear containing the node editor.
+
+You may notice an empty node floating in the canvas — don't worry about it 😄  
+It’s used as a workaround to get a reference point at coordinate `(0, 0)`.  
+This is required to support relative positioning in the canvas.
+
+Right-click anywhere in the canvas to bring up the popup menu.  
+It will list all available modules. These are automatically detected based on the folder structure in `/modules`.
+
+> The category/subfolder structure in `/modules` is reflected in the popup menu.
+
+<p align="center">
+  <img src="doc_ressources/node_editor.png" alt="Node Editor" width="50%">
+</p>
+
+Let’s build a minimal example to understand how modules interact.
+
+Right-click in the canvas and add:
+   - A Hello world module
+   - A text viewer module
+
+Now, connect the **output** of the button module to the **input** of the text viewer.
+
+✅ Since both modules use the same `IOTypes.TEXT`, the connection will succeed.
+
+if you click on the button in its window → `"Hello World"` will appear in the text viewer.
+
+<p align="center">
+  <img src="doc_ressources/hello_world.png" alt="Hello World Flow" width="50%">
+</p>
+
+> That’s it ! You’ve just built your first working flow!
+
+--- 
+
+Now that you've seen the basics, let’s try a slightly more advanced flow.  
+The following flow sets up a **video analysis pipeline** for tracking microalgae:
+
+<p align="center">
+  <img src="doc_ressources/tracking_flow.png" alt="Tracking Flow" width="50%">
+</p>
+
+The internal code logic of each module isn't important for this demo, the goal is to show how easily a complete analysis chain can be built using individual building blocks.
+
+Each module automatically opens its own DearPyGui window, allowing you to control the parameters of the corresponding algorithm:
+
+<p align="center">
+  <img src="doc_ressources/tracking.png" alt="Tracking Windows" width="50%">
+</p>
+
+
+This is great, but…  
+When your flow starts growing, you end up with a lot of floating windows.
+Even if modules like **Binarize**, **Detect contours**, and **Tracker** are separate components, they are often used together in the same pipeline.  
+Wouldn't it be nice to control all parameters from **a single window**?
+
+✅ That's exactly what the **Fusion Manager** is for!
+
+###  🔥 Fusion manager
+
+The Fusion Manager allows you to **visually merge multiple module windows** into a single DearPyGui window — while keeping their internal logic completely separated.  
+This improves readability and helps you design cleaner user interfaces.
+
+To try it:
+
+1. Open **Modules → Fusion manager**
+2. Click **Refresh** to list the current modules
+3. Drag and drop one module onto another → they will be merged
+
+<p align="center">
+  <img src="doc_ressources/fusion_manager.png" alt="Fusion Manager" width="50%">
+</p>
+
+You can perform **multiple fusions** in a row:  
+`A + B → AB`, then `AB + C → ABC`
+
+And of course, you can **restore** any window to its original, standalone state.
+
+<p align="center">
+  <img src="doc_ressources/fusion.png" alt="Fused Interface" width="50%">
+</p>
 ## 🔧How it works ?
 
 ### 🗂️ Project structure
@@ -241,7 +334,21 @@ class Template_win(WindowBase):
 EXPORTED_CLASS = Template_win
 ```
 
-#### How it works
+At the end of every module file, you must define:
+
+```python
+EXPORTED_CLASS = YourModuleClass
+```
+This variable is **mandatory**. It tells Node Assistant which class to load when the module is imported.
+
+The module registry system uses `EXPORTED_CLASS` to:
+- detect and list available modules automatically
+- display them in the Node Editor
+- allow dynamic instantiation at runtime via `get_available_modules()`
+
+If this variable is missing or incorrectly defined, your module **won’t be detected** and **won’t appear** in the UI.
+
+### How it works
 
 Each instance of this module creates a **new DearPyGui window**, using a unique UUID to avoid ID conflicts and **multiple instances can coexist** independently. Each manages its own connections via `self.connections`.
 
