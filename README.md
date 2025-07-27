@@ -90,7 +90,7 @@ It will list all available modules. These are automatically detected based on th
 > The category/subfolder structure in `/modules` is reflected in the popup menu.
 
 <p align="center">
-  <img src="doc_ressources/node_editor.png" alt="Node Editor" width="50%">
+  <img src="doc_ressources/node_editor.png" alt="Node Editor" width="100%">
 </p>
 
 Let’s build a minimal example to understand how modules interact.
@@ -106,7 +106,7 @@ Now, connect the **output** of the button module to the **input** of the text vi
 if you click on the button in its window → `"Hello World"` will appear in the text viewer.
 
 <p align="center">
-  <img src="doc_ressources/hello_world.png" alt="Hello World Flow" width="50%">
+  <img src="doc_ressources/hello_world.png" alt="Hello World Flow" width="100%">
 </p>
 
 > That’s it ! You’ve just built your first working flow!
@@ -117,7 +117,7 @@ Now that you've seen the basics, let’s try a slightly more advanced flow.
 The following flow sets up a **video analysis pipeline** for tracking microalgae:
 
 <p align="center">
-  <img src="doc_ressources/tracking_flow.png" alt="Tracking Flow" width="50%">
+  <img src="doc_ressources/tracking_flow.png" alt="Tracking Flow" width="100%">
 </p>
 
 The internal code logic of each module isn't important for this demo, the goal is to show how easily a complete analysis chain can be built using individual building blocks.
@@ -125,7 +125,7 @@ The internal code logic of each module isn't important for this demo, the goal i
 Each module automatically opens its own DearPyGui window, allowing you to control the parameters of the corresponding algorithm:
 
 <p align="center">
-  <img src="doc_ressources/tracking.png" alt="Tracking Windows" width="50%">
+  <img src="doc_ressources/tracking.png" alt="Tracking Windows" width="100%">
 </p>
 
 
@@ -148,7 +148,7 @@ To try it:
 3. Drag and drop one module onto another → they will be merged
 
 <p align="center">
-  <img src="doc_ressources/fusion_manager.png" alt="Fusion Manager" width="50%">
+  <img src="doc_ressources/fusion_manager.png" alt="Fusion Manager" width="100%">
 </p>
 
 You can perform **multiple fusions** in a row:  
@@ -157,8 +157,41 @@ You can perform **multiple fusions** in a row:
 And of course, you can **restore** any window to its original, standalone state.
 
 <p align="center">
-  <img src="doc_ressources/fusion.png" alt="Fused Interface" width="50%">
+  <img src="doc_ressources/fusion.png" alt="Fused Interface" width="100%">
 </p>
+
+
+### 💾 Saving & Restoring your workspace
+
+Once you're happy with a flow, you can **save its complete state** for future use.
+
+Go to:  
+**File → Save workspace**
+
+This will export everything into a JSON file named:
+
+```
+layouts/manual_layout.json
+```
+
+To restore that layout on next launch, simply call this in `main.py`:
+
+```python
+load_workspace('layouts/manual_layout.json')
+```
+
+---
+
+What gets saved:
+
+- All loaded modules
+- Window positions and sizes
+- Persistent variables (those listed in `self._persistent_fields`)
+- Node connections in the editor
+- Fusion Manager states (merged windows are preserved)
+
+✅ This means your app will look and behave **almost exactly** as it did when you saved it.
+
 ## 🔧How it works ?
 
 ### 🗂️ Project structure

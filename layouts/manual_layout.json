@@ -1,23 +1,45 @@
 {
     "windows": [
         {
-            "module": "serial.module_template",
-            "class_name": "Template_win",
+            "module": "basic_ui.Hello_world_win",
+            "class_name": "HelloWorld_win",
             "uuid": "122",
             "pos": [
-                417,
-                103
+                27,
+                61
             ],
             "size": [
-                300,
-                200
+                204,
+                115
             ],
             "visible": true,
             "params": {
-                "label": "Template",
-                "default_number": 15
+                "label": "Hello World"
+            }
+        },
+        {
+            "module": "basic_ui.text_viewer_win",
+            "class_name": "Text_viewer_win",
+            "uuid": "134",
+            "pos": [
+                234,
+                61
+            ],
+            "size": [
+                402,
+                300
+            ],
+            "visible": true,
+            "params": {
+                "label": "Text Viewer"
             }
         }
     ],
-    "connections": []
+    "connections": [
+        {
+            "from": "122",
+            "output": "Out",
+            "to": "134"
+        }
+    ]
 }
