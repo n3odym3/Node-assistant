@@ -14,6 +14,7 @@ You can choose between two approaches:
 - **Low-code**: speed up development by automating repetitive tasks, while still allowing full control when needed.
 
 Of course, this system is not a replacement for fully custom code. A hand-written application will always offer more flexibility, optimization, and control.  
+
 **Node Assistant** is ideal for rapid prototyping, quick tool creation, and making GUI development more accessible, especially for beginners.
 
 ## 🧬 For a bit of context
@@ -80,7 +81,7 @@ Then go to the top menu:
 
 A new window will appear containing the node editor.
 
-You may notice an empty node floating in the canvas — don't worry about it 😄  
+You may notice an empty node floating in the canvas, don't worry about it 😄  
 It’s used as a workaround to get a reference point at coordinate `(0, 0)`.  
 This is required to support relative positioning in the canvas.
 
@@ -138,7 +139,7 @@ Wouldn't it be nice to control all parameters from **a single window**?
 
 ###  🔥 Fusion manager
 
-The Fusion Manager allows you to **visually merge multiple module windows** into a single DearPyGui window — while keeping their internal logic completely separated.  
+The Fusion Manager allows you to **visually merge multiple module windows** into a single DearPyGui window , while keeping their internal logic completely separated.  
 This improves readability and helps you design cleaner user interfaces.
 
 To try it:
@@ -316,7 +317,7 @@ The Node Assistant project is organized into several folders, each with a specif
 - **`modules/`**  
   Contains all the functional modules used by the program.  
   Each module is placed in its own subfolder and **must be self-contained**, including all its dependencies and companion scripts.  
-  While sharing code between modules is technically possible, it's **not recommended** — users may add or remove modules independently, and shared dependencies can lead to compatibility issues.
+  While sharing code between modules is technically possible, it's **not recommended**, users may add or remove modules independently, and shared dependencies can lead to compatibility issues.
 
 - **`resources/`**  
   Holds additional assets such as fonts, icons, and other graphical elements.
@@ -605,7 +606,7 @@ def input_cb(self, *args, **kwargs):
 
 The `input_cb()` method is called **automatically** when another module (connected upstream) sends data to this one.
 
-This is where you implement the **core logic** of your module — for example:
+This is where you implement the **core logic** of your module , for example:
 - extracting values from `args` or `kwargs`
 - updating internal state
 - triggering new outputs or refreshing the UI
