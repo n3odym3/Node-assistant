@@ -49,7 +49,7 @@ if __name__ == '__main__' :
 
     # manual_layout.create_windows()
     # # export_workspace(None, 'layouts/manual_layout.json')
-    layout = load_workspace('layouts/manual_layout.json')
+    # layout = load_workspace('layouts/manual_layout.json')
     node_editor.rebuild_from_instances(MODULES_REGISTRY)
 
 

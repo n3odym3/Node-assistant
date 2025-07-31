@@ -192,7 +192,111 @@ What gets saved:
 
 ✅ This means your app will look and behave **almost exactly** as it did when you saved it.
 
-## 🔧How it works ?
+
+## 📝Create flow programmatically 
+
+Not everyone loves No-code.  
+Clicking, dragging, connecting...that can feel tedious when you already know exactly what you want to build.
+
+Node Assistant lets you define your entire flow **programmatically**:
+- Load and position modules
+- Set parameters
+- Create or remove connections
+- Merge windows
+
+
+By default, you can describe your manual layout in:
+
+```
+core/manual_layout.py
+```
+
+Then, in `main.py`, call:
+
+```python
+manual_layout.create_windows()
+```
+
+---
+
+### 🧪 Example: Hello World (programmatic version)
+
+This is equivalent to the drag-and-drop version, but written in code:
+
+```python
+from modules.demo.hello_world.hello_world_win import HelloWorld_win
+from modules.generic.text_viewer.text_viewer_win import Text_viewer_win
+
+def create_windows():
+    helloworld = HelloWorld_win(label="Hello World", pos=(50, 50), win_width=300, win_height=200)
+    text_viewer = Text_viewer_win(label="Text Viewer", pos=(350, 50), win_width=400, win_height=300)
+
+    helloworld.connect_to(text_viewer, 0)
+```
+
+---
+
+### 🎥 Example: Video processing with merged interface
+
+You can also create more advanced flows and merge windows together, like in the computer vision demo :
+
+```python
+from modules.computer_vision.binarize.binarise_win import Binarize_win
+from modules.computer_vision.contour_detection.contour_detection_win import Contour_detection_win
+from modules.computer_vision.tracker.tracker_win import Tracker_win
+
+def create_windows():
+    binarise = Binarize_win(label="Binarize", pos=(50, 50), win_width=300, win_height=200)
+    contour_detection = Contour_detection_win(label="Contour Detection", pos=(50, 50), win_width=400, win_height=300)
+    tracker = Tracker_win(label="Object Tracker", pos=(50, 50), win_width=400, win_height=300)
+
+    binarise.connect_to(contour_detection, 3)
+    contour_detection.connect_to(tracker, "Detections")
+
+    tracker.merge_into(contour_detection)
+    contour_detection.merge_into(binarise)
+```
+> This approach is ideal for scripted workflows, reproducible demos, or to automate creation of new GUI element on a specific trigger
+
+The `.connect_to()` method can accept **either**:
+
+- an **index** of the output  
+  (e.g., `0` to use the first declared output)
+- or a **string key** matching the name in `self.outputs`  
+  (e.g., `"TEXT"` or `"Mask"`)
+
+--- 
+
+Even if a flow is created programmatically, it can still be edited using the visual Node Editor.
+
+You just need to call :
+
+```python
+node_editor.rebuild_from_instances(MODULES_REGISTRY)
+```
+
+This will reconstruct a visual flow from the current program state, including all active modules and their connections.
+
+You can then modify it manually and export it to JSON like any other layout.
+## 🔧 To go further
+
+This project is **not a standalone GUI library**, but rather a **plugin/wrapper** built on top of [DearPyGui](https://github.com/hoffstadt/DearPyGui).  
+And that’s entirely by design.
+
+Why?
+
+- 🧠 No need to reinvent the wheel, you keep full access to native DearPyGui tools  
+- 🧩 Writing new modules stays **simple and flexible**  
+- 🔁 You can freely combine Node Assistant features with pure DPG code  
+- 🌐 It's **not limited to DearPyGui**, you can integrate other libraries directly into your modules  
+- 🔄 The system is **non-invasive**: it doesn't patch or override DPG internals, making it easier to follow future **DearPyGui updates**
+
+---
+
+The following sections will help you **understand how the system works**, and how to **extend it with your own features and modules**.
+
+
+
 
 ### 🗂️ Project structure
 
